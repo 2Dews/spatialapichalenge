@@ -10,7 +10,7 @@ currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0,parentdir) 
 
-import source.spatial_library
+import spatial_api.spatial_library
 
 testdata = [
     ('POLYGON((-11648991.3615983 4921487.3851758,-11648463.8373444 4921488.17577299,-11648467.7337492 4922020.46492316,-11648994.3243665 4922018.95145425,-11648991.3615983 4921487.3851758))', 
@@ -30,16 +30,16 @@ def test_valid_geojson_polygons_intersect(polyA, polyB, expected):
     polyAJson = json.dumps(shapely.geometry.mapping(shapely.wkt.loads(polyA)))
     polyBJson = json.dumps(shapely.geometry.mapping(shapely.wkt.loads(polyB)))
 
-    intersects = source.spatial_library.does_intersect(polyAJson, polyBJson)
+    intersects = spatial_api.spatial_library.does_intersect(polyAJson, polyBJson)
     assert intersects == expected
 
 
 @pytest.mark.parametrize("polyA,polyB,expected", testdata)
 def test_valid_wkt_polygons_intersect(polyA, polyB, expected):
-    intersects = source.spatial_library.does_intersect(polyA, polyB)
+    intersects = spatial_api.spatial_library.does_intersect(polyA, polyB)
     assert intersects == expected
 
 
 def test_invalid_string_polygon_intersection():
     with pytest.raises(Exception, match=r'.*Could not create geometry object from string.*'):
-        source.spatial_library.does_intersect('*', r'{}')
+        spatial_api.spatial_library.does_intersect('*', r'{}')

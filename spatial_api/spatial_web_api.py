@@ -4,7 +4,7 @@ from flask import (
     request,
 )
 
-import source.spatial_library
+import spatial_api.spatial_library
 
 app = Flask(__name__)
 
@@ -17,7 +17,7 @@ def server_status():
 def geometry_intersection():
     requstJson = request.get_json()
 
-    doesIntersect = source.spatial_library.does_intersect(requstJson['geometry_a'], requstJson['geometry_a'])
+    doesIntersect = spatial_api.spatial_library.does_intersect(requstJson['geometry_a'], requstJson['geometry_a'])
 
     response = {'status': 'ok'}
 

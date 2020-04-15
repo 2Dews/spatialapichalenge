@@ -6,7 +6,7 @@ currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0,parentdir) 
 
-from source import spatial_web_api
+from spatial_api import spatial_web_api
 
 @pytest.fixture
 def client():
