@@ -10,7 +10,7 @@ currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0,parentdir) 
 
-import spatial_api.spatial_library
+from spatial_api import app
 
 testdata = [
     ('POLYGON((-11648991.3615983 4921487.3851758,-11648463.8373444 4921488.17577299,-11648467.7337492 4922020.46492316,-11648994.3243665 4922018.95145425,-11648991.3615983 4921487.3851758))', 
@@ -24,22 +24,31 @@ testdata = [
     False)
 ]
 
+testGeoJson = [
+    (
+        {"type": "Polygon", "coordinates": [[[-11648991.3615983, 4921487.3851758], [-11648463.8373444, 4921488.17577299], [-11648467.7337492, 4922020.46492316], [-11648994.3243665, 4922018.95145425], [-11648991.3615983, 4921487.3851758]]]},
+        {"type": "Polygon", "coordinates": [[[-11648991.3615983, 4921487.3851758], [-11648463.8373444, 4921488.17577299], [-11648467.7337492, 4922020.46492316], [-11648994.3243665, 4922018.95145425], [-11648991.3615983, 4921487.3851758]]]},
+        True     
+    )
+
+]
+
 @pytest.mark.parametrize("polyA,polyB,expected", testdata)
 def test_valid_geojson_polygons_intersect(polyA, polyB, expected):
 
-    polyAJson = json.dumps(shapely.geometry.mapping(shapely.wkt.loads(polyA)))
-    polyBJson = json.dumps(shapely.geometry.mapping(shapely.wkt.loads(polyB)))
+    polyAJson = shapely.geometry.mapping(shapely.wkt.loads(polyA))
+    polyBJson = shapely.geometry.mapping(shapely.wkt.loads(polyB))
 
-    intersects = spatial_api.spatial_library.does_intersect(polyAJson, polyBJson)
+    intersects = app.does_intersect(polyAJson, polyBJson)
     assert intersects == expected
 
 
 @pytest.mark.parametrize("polyA,polyB,expected", testdata)
 def test_valid_wkt_polygons_intersect(polyA, polyB, expected):
-    intersects = spatial_api.spatial_library.does_intersect(polyA, polyB)
+    intersects = app.does_intersect(polyA, polyB)
     assert intersects == expected
 
 
 def test_invalid_string_polygon_intersection():
     with pytest.raises(Exception, match=r'.*Could not create geometry object from string.*'):
-        spatial_api.spatial_library.does_intersect('*', r'{}')
+        app.does_intersect('*', r'{}')
