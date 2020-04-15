@@ -36,9 +36,9 @@ def test_valid_geojson_polygons_intersect(polyA, polyB, expected):
 
 @pytest.mark.parametrize("polyA,polyB,expected", testdata)
 def test_valid_wkt_polygons_intersect(polyA, polyB, expected):
-
     intersects = source.spatial_library.does_intersect(polyA, polyB)
     assert intersects == expected
+
 
 def test_invalid_string_polygon_intersection():
     with pytest.raises(Exception, match=r'.*Could not create geometry object from string.*'):
