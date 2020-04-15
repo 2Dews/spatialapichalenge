@@ -1,10 +1,11 @@
+import awsgi
 from flask import (
     Flask,
     jsonify,
     request,
 )
 
-import spatial_api.spatial_library
+from spatial_api import spatial_library
 
 app = Flask(__name__)
 
@@ -17,8 +18,11 @@ def server_status():
 def geometry_intersection():
     requstJson = request.get_json()
 
-    doesIntersect = spatial_api.spatial_library.does_intersect(requstJson['geometry_a'], requstJson['geometry_a'])
+    doesIntersect = spatial_library.does_intersect(requstJson['geometry_a'], requstJson['geometry_a'])
 
     response = {'status': 'ok'}
 
     return jsonify(response)
+
+def lambda_handler(event, context):
+    return awsgi.response(app, event, context)

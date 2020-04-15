@@ -1,3 +1,4 @@
 /.pytest_cache/v/cache
 /.vscode
 */__pycache__/
+/.aws-sam

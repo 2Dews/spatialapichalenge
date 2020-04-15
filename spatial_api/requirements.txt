@@ -1,5 +1,4 @@
-awsgi
+aws-wsgi
 flask
-json
 geojson
 shapely
