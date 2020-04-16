@@ -37,7 +37,7 @@ def does_intersect(geometry_string_a, geometry_string_b):
     geometry_a = geometry_string_to_geometry(geometry_string_a)
     geometry_b = geometry_string_to_geometry(geometry_string_b)
 
-    #TODO Checks that the polygons have same spatial reference.
+    #TODO try and check that the geometries have same spatial reference.
 
     return geometry_a.intersects(geometry_b)
 
@@ -50,6 +50,10 @@ def server_status():
 
 @app.route('/geometry/intersection', methods=['POST'])
 def geometry_intersection():
+    """
+    Checks two geometries for intersection. 
+    Geometries can be geojson or wkt strings. 
+    """
     requstJson = request.get_json()
 
     doesIntersect = does_intersect(requstJson['geometry_a'], requstJson['geometry_a'])

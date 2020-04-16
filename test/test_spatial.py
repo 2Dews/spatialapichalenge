@@ -24,18 +24,12 @@ testdata = [
     False)
 ]
 
-testGeoJson = [
-    (
-        {"type": "Polygon", "coordinates": [[[-11648991.3615983, 4921487.3851758], [-11648463.8373444, 4921488.17577299], [-11648467.7337492, 4922020.46492316], [-11648994.3243665, 4922018.95145425], [-11648991.3615983, 4921487.3851758]]]},
-        {"type": "Polygon", "coordinates": [[[-11648991.3615983, 4921487.3851758], [-11648463.8373444, 4921488.17577299], [-11648467.7337492, 4922020.46492316], [-11648994.3243665, 4922018.95145425], [-11648991.3615983, 4921487.3851758]]]},
-        True     
-    )
-
-]
-
 @pytest.mark.parametrize("polyA,polyB,expected", testdata)
 def test_valid_geojson_polygons_intersect(polyA, polyB, expected):
-
+    """ 
+    Test valid geojson geometries return correct intersection results.
+    """
+    #Convert WKT to Geojson
     polyAJson = shapely.geometry.mapping(shapely.wkt.loads(polyA))
     polyBJson = shapely.geometry.mapping(shapely.wkt.loads(polyB))
 
@@ -45,10 +39,16 @@ def test_valid_geojson_polygons_intersect(polyA, polyB, expected):
 
 @pytest.mark.parametrize("polyA,polyB,expected", testdata)
 def test_valid_wkt_polygons_intersect(polyA, polyB, expected):
+    """ 
+    Test valid wkt geometries return correct intersection results.
+    """
     intersects = app.does_intersect(polyA, polyB)
     assert intersects == expected
 
 
 def test_invalid_string_polygon_intersection():
+    """ 
+    Test test that invalid geometry strings return exception.
+    """
     with pytest.raises(Exception, match=r'.*Could not create geometry object from string.*'):
         app.does_intersect('*', r'{}')

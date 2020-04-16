@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "36b648d2-e534-462b-9edc-f6482a530fe5",
+		"name": "Sample Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Server Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:3000/serverstatus",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"serverstatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Intersection - GeoJson",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"geometry_a\": {\"type\": \"Polygon\", \"coordinates\": [[[-11648991.3615983, 4921487.3851758], [-11648463.8373444, 4921488.17577299], [-11648467.7337492, 4922020.46492316], [-11648994.3243665, 4922018.95145425], [-11648991.3615983, 4921487.3851758]]]},\n\"geometry_b\": {\"type\": \"Polygon\", \"coordinates\": [[[-11648991.3615983, 4921487.3851758], [-11648463.8373444, 4921488.17577299], [-11648467.7337492, 4922020.46492316], [-11648994.3243665, 4922018.95145425], [-11648991.3615983, 4921487.3851758]]]}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/geometry/intersection",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"geometry",
+						"intersection"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f434bbbc-e333-4aa7-bb46-f72d54754fd1",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "cd181a58-e2bb-4f9d-adcc-11c88f4c9d4a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
